@@ -15,6 +15,7 @@ public class CustomerService {
         return customerRepository.save(customer);
     }
 
-
-
+    public Customer retCustomerById(int id) {
+      return customerRepository.findById(id).orElseThrow(()->new RuntimeException("Customer not found with id: " + id));
+    }
 }
