@@ -22,7 +22,6 @@ public Customer addNewCustomer(@RequestBody Customer customer){
 public Customer getCustomerById(@PathVariable int id){
 
     return customerService.retCustomerById(id);
-
 }
 
 
