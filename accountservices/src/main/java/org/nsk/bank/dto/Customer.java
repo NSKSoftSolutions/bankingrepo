@@ -1,4 +1,4 @@
-package domain;
+package org.nsk.bank.dto;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -9,21 +9,16 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@Getter
-@Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@Entity
-public class Account {
+@Setter
+@Getter
+public class Customer {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private int accountId;
-    private String accountType;
-    private long accountNumber;
-    private double balance;
-    private int customerId;
-
+    private int id;
+    private String name;
+    private String email;
+    private String mobileNumber;
 
 
 }
