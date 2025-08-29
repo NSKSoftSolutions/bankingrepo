@@ -75,4 +75,42 @@ public class AccountServices {
         return isValidCustomer;
     }
 
+    public Account debitAccount(long accountNumber, double amount) {
+        log.info("Inside debitAccount Method of AccountServices");
+        Account account = accountServiceRepository.findByAccountNumber(accountNumber);
+        if (account == null) {
+            log.error("Account with number {} not found", accountNumber);
+            throw new RuntimeException("Account not found");
+        }
+        if (amount <= 0) {
+            log.error("Invalid debit amount: {}", amount);
+            throw new IllegalArgumentException("Amount must be greater than zero");
+        }
+        if (account.getBalance() < amount) {
+            log.error("Insufficient balance in account {}: requested {}, available {}", accountNumber, amount, account.getBalance());
+            throw new RuntimeException("Insufficient balance");
+        }
+        account.setBalance(account.getBalance() - amount);
+        Account updatedAccount = accountServiceRepository.save(account);
+        log.info("Debited {} from account {}. New balance: {}", amount, accountNumber, updatedAccount.getBalance());
+        return updatedAccount;
+    }
+
+    public Account creditAccount(long accountNumber, double amount) {
+        log.info("Inside creditAccount Method of AccountServices");
+        Account account = accountServiceRepository.findByAccountNumber(accountNumber);
+        if (account == null) {
+            log.error("Account with number {} not found", accountNumber);
+            throw new RuntimeException("Account not found");
+        }
+        if (amount <= 0) {
+            log.error("Invalid credit amount: {}", amount);
+            throw new IllegalArgumentException("Amount must be greater than zero");
+        }
+        account.setBalance(account.getBalance() + amount);
+        Account updatedAccount = accountServiceRepository.save(account);
+        log.info("Credited {} to account {}. New balance: {}", amount, accountNumber, updatedAccount.getBalance());
+        return updatedAccount;
+    }
+
 }

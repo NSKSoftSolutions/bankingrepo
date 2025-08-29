@@ -41,4 +41,27 @@ public class AccounServiceController {
             throw new RuntimeException("Account Not Found");
         }
     }
+    @PutMapping("/accounts/{accountNumber}/debit")
+    public ResponseEntity<Account> retAccountBy(@PathVariable long accountNumber,@RequestParam double amount) {
+        log.info("Debiting amount {} from account number :{}", amount, accountNumber);
+        Account account = accountServices.debitAccount(accountNumber, amount);
+        if (account != null) {
+            log.info("Amount debited successfully");
+            return ResponseEntity.ok(account);
+        } else {
+            throw new RuntimeException("Account Not Found or Insufficient Balance");
+        }
+    }
+    //credit amount
+    @PutMapping("/accounts/{accountNumber}/credit")
+    public ResponseEntity<Account> creditAccount(@PathVariable long accountNumber, @RequestParam double amount) {
+        log.info("Crediting amount {} to account number :{}", amount, accountNumber);
+        Account account = accountServices.creditAccount(accountNumber, amount);
+        if (account != null) {
+            log.info("Amount credited successfully");
+            return ResponseEntity.ok(account);
+        } else {
+            throw new RuntimeException("Account Not Found");
+        }
+    }
 }
