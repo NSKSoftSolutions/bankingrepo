@@ -8,18 +8,22 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.boot.autoconfigure.web.WebProperties;
 
-@AllArgsConstructor
-@NoArgsConstructor
+@Entity
 @Setter
 @Getter
-@Entity
+@AllArgsConstructor
+@NoArgsConstructor
 public class Transaction {
+
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     private long transactionId;
-    private String senderAccountNumber;
-    private String recieverAccountNumber;
+    private long senderAccountNumber;
+    private long benificaryAccountNumber;
     private double amount;
     private String status;
+
+
 }
