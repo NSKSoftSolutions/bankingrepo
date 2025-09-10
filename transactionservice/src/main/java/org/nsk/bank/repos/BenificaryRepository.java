@@ -6,4 +6,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface BenificaryRepository extends JpaRepository<Benificary,Long> {
+    public Benificary findByBenificaryAccountNumber(long accountNumber);
+    public Benificary findByCustomerAccountNumber(long customerAccountNumber);
 }
